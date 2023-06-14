@@ -3,7 +3,15 @@ const app= express();
 const PORT= process.env.PORT ||3500;
 const path = require('path');
 
-app.use('/', express.static(path.join(__dirname,'/public') ));
+// custom middleware
+const errorHandler = require('./middleware/errorHandler')
+const {logger} = require('./middleware/logger')
+
+app.use(logger)
+app.use(express.json());
+
+app.use('/', express.static(path.join(__dirname,'public') ));
+// app.use(express.static('public'))
 app.use('/',require('./routes/root'));
 app.all('*', (req,res)=>{
     res.status(404)
@@ -17,6 +25,9 @@ app.all('*', (req,res)=>{
         res.type('txt').send('404 Not Found')
     }
 })
+
+app.use(errorHandler)
+
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT} `)
 });
