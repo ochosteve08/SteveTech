@@ -3,12 +3,33 @@ const app= express();
 const PORT= process.env.PORT ||3500;
 const path = require('path');
 
+//thirdparty middleware
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+
 // custom middleware
 const errorHandler = require('./middleware/errorHandler')
 const {logger} = require('./middleware/logger')
 
-app.use(logger)
+
+app.use(logger);
+
+
+//in-built middleware
 app.use(express.json());
+
+app.use(cookieParser())
+app.use(cors(corsOptions))
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:3500",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
+
 
 app.use('/', express.static(path.join(__dirname,'public') ));
 // app.use(express.static('public'))
