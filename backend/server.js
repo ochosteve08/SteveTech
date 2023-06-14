@@ -36,6 +36,9 @@ app.use(cors(corsOptions));
 app.use("/", express.static(path.join(__dirname, "public")));
 // app.use(express.static('public'))
 app.use("/", require("./routes/root"));
+app.use('/user',require('./routes/user.routes'))
+
+//404- page not found
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {

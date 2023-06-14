@@ -28,5 +28,5 @@ const userSchema = new Schema(
 );
 
 
-const UserModel = mongoose.model('User',userSchema);
+const UserModel = mongoose.model('grayUser',userSchema);
 module.exports = UserModel;
