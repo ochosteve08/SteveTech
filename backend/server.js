@@ -37,6 +37,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 // app.use(express.static('public'))
 app.use("/", require("./routes/root"));
 app.use('/user',require('./routes/user.routes'))
+app.use("/note", require("./routes/notes.routes"));
 
 //404- page not found
 app.all("*", (req, res) => {
