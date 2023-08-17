@@ -6,7 +6,6 @@ const path = require("path");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbCon");
 
-//thirdparty middleware
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
@@ -19,7 +18,6 @@ connectDB();
 
 app.use(logger);
 
-//in-built middleware
 app.use(express.json());
 
 app.use(cookieParser());
@@ -34,15 +32,15 @@ app.use(cors(corsOptions));
 // );
 
 app.use("/", express.static(path.join(__dirname, "public")));
-// app.use(express.static('public'))
 app.use("/", require("./routes/root"));
-app.use('/user',require('./routes/user.routes'))
+app.use("/user", require("./routes/user.routes"));
 app.use("/note", require("./routes/notes.routes"));
 
-//404- page not found
+
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {
+    console.log("html testing");
     res.sendFile(path.join(__dirname, "views", "404.html"));
   } else if (req.accepts("json")) {
     res.json({ message: "404 Not Found" });
@@ -61,7 +59,10 @@ mongoose.connection.once("open", () => {
   });
 });
 
-mongoose.connection.on('error', (error) => {
-    console.log(error);
-    logEvents(`${error.no}:${error.code}\t${error.syscall}\t${error.hostname}`,'mongoErrorLog.log')
-})
+mongoose.connection.on("error", (error) => {
+  console.log(error);
+  logEvents(
+    `${error.no}:${error.code}\t${error.syscall}\t${error.hostname}`,
+    "mongoErrorLog.log"
+  );
+});
