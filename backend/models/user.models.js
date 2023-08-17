@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      required:true,
+      required: true,
     },
     password: {
       type: String,
@@ -27,6 +27,5 @@ const userSchema = new Schema(
   }
 );
 
-
-const UserModel = mongoose.model('grayUser',userSchema);
+const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
