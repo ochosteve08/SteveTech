@@ -24,7 +24,8 @@ const createUserValidation = Joi.object({
     )
     .min(8)
     .max(128),
-  roles: Joi.string().required().label("User roles"),
+  roles: Joi.array().items(Joi.string()).default(["Employee"]).label("Roles"),
+  active: Joi.boolean().default(true).label("Active"),
 });
 
 const getUserValidation = Joi.object({
@@ -36,9 +37,11 @@ const noteIdValidation = Joi.object({
 });
 
 const updateUserValidation = Joi.object()({
-  title: Joi.string().required().label("Title"),
-  description: Joi.string().required().label("Description"),
-  completed: Joi.boolean().label("Completed"),
+  id: Joi.string().required().label("user Id"),
+  username: Joi.string().required().label("Username"),
+  password: Joi.string().allow("").optional().label("Password"),
+  roles: Joi.array().items(Joi.string()).min(1).required().label("Roles"),
+  active: Joi.boolean().required().label("Active"),
 });
 
 module.exports = {

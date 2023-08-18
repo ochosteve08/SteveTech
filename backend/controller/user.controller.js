@@ -48,8 +48,8 @@ const createUser = asyncHandler(async (req, res) => {
 //@route PATCH /user
 //@access Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { username, password, roles, active, id } = req.body;
-
+//   const { username, password, roles, active, id } = req.body;
+const { username, password, roles, active, id } = userValidation.updateUserValidation.validateAsync(req.body);
   //confirm data
   if (
     !id ||
