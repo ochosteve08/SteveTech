@@ -68,13 +68,10 @@ const updateNote = asyncHandler(async (req, res) => {
   res.json({ message: `${updateNote.title} updated`, updateNote });
 });
 
-
 //@access Private
 const deleteNote = asyncHandler(async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400).json({ message: "note id required" });
-  }
+  const { id } = await noteValidation.getNoteValidation.validateAsync(req.body);
+
   // Confirm note exists to delete
   const note = await NoteModel.findById(id).exec();
   if (!note) {
