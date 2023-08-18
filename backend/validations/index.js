@@ -1,7 +1,7 @@
 const userValidation = require("./user.validation");
-const todoValidation = require("./todo.validation");
+const noteValidation = require("./note.validation");
 
 module.exports = {
   userValidation,
-  todoValidation,
+  noteValidation,
 };
