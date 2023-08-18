@@ -43,20 +43,7 @@ const createNote = asyncHandler(async (req, res) => {
 //@access Private
 const updateNote = asyncHandler(async (req, res) => {
   const { id, userId, title, description, completed } =
-    noteValidation.updateNoteValidation.validateAsync(req.body);
-
-  //confirm data
-  // if (
-  //   !id ||
-  //   !userId ||
-  //   !title ||
-  //   !description ||
-  //   typeof completed !== "boolean"
-  // ) {
-  //   return res
-  //     .status(400)
-  //     .json({ message: "All fields except password are required" });
-  // }
+    await noteValidation.updateNoteValidation.validateAsync(req.body);
 
   // Confirm note exists to update
   const note = await NoteModel.findById(id).exec();
@@ -65,24 +52,23 @@ const updateNote = asyncHandler(async (req, res) => {
     res.status(400).json({ message: "note not found" });
   }
 
-  //check for duplicate
-  const duplicate = await UserModel.findOne({ title }).lean().exec();
+  // check for duplicate
+  const duplicate = await NoteModel.findOne({ title }).lean().exec();
 
   //allow update to original user
   if (duplicate && duplicate._id.toString() !== id) {
     return res.status(409).json({ message: "duplicate title" });
   }
   note.userId = userId;
-  user.title = title;
-  user.description = description;
+  note.title = title;
+  note.description = description;
   note.completed = completed;
 
   const updateNote = await note.save();
   res.json({ message: `${updateNote.title} updated`, updateNote });
 });
 
-//@desc delete user
-//@route DELETE /user
+
 //@access Private
 const deleteNote = asyncHandler(async (req, res) => {
   const { id } = req.body;
