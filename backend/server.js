@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
-app.use("/user", require("./routes/user.routes"));
+app.use("/users", require("./routes/user.routes"));
 app.use("/note", require("./routes/notes.routes"));
 
 app.all("*", (req, res) => {
