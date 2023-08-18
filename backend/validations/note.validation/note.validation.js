@@ -1,16 +1,14 @@
 const Joi = require("joi");
 
-const addTodoValidation = Joi.object({
+const createNoteValidation = Joi.object({
   title: Joi.string().required().label("Title"),
   description: Joi.string().required().label("Description"),
-  user_id: Joi.string().required().label("User ID"),
+  userId: Joi.string().required().label("User ID"),
 });
-
 
 const getTodoValidation = Joi.object({
   id: Joi.string().required().label("Todo Id"),
 });
-
 
 const todoIdValidation = Joi.object({
   id: Joi.string().required().label("Todo Id"),
@@ -23,9 +21,8 @@ const updateTodoValidation = Joi.object().keys({
 });
 
 module.exports = {
-  addTodoValidation,
+ createNoteValidation,
   getTodoValidation,
   todoIdValidation,
   updateTodoValidation,
 };
-

@@ -81,7 +81,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const { id } = await userValidation.getUserValidation.validateAsync(req.body);
   //check if user has assigned note
-  const notes = await NoteModel.findOne({ user: id }).lean().exec();
+  const notes = await NoteModel.findOne({ userId: id }).lean().exec();
   if (notes) {
     return res.status(400).json({ message: "user has assigned notes" });
   }

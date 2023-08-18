@@ -2,9 +2,6 @@ const UserModel = require("../models/user.models");
 const NoteModel = require("../models/note.models");
 const asyncHandler = require("express-async-handler");
 
-
-//@desc get all notes
-//@route GET /notes
 //@access Private
 
 const getAllNotes = asyncHandler(async (req, res) => {
@@ -26,8 +23,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
   res.json(notesWithUser);
 });
 
-//@desc create new note
-//@route POST /note
+
 //@access Private
 const createNote = asyncHandler(async (req, res) => {
   const { user, title, text } = req.body;
