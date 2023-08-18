@@ -48,8 +48,9 @@ const createUser = asyncHandler(async (req, res) => {
 //@route PATCH /user
 //@access Private
 const updateUser = asyncHandler(async (req, res) => {
-//   const { username, password, roles, active, id } = req.body;
-const { username, password, roles, active, id } = userValidation.updateUserValidation.validateAsync(req.body);
+  //   const { username, password, roles, active, id } = req.body;
+  const { username, password, roles, active, id } =
+    userValidation.updateUserValidation.validateAsync(req.body);
   //confirm data
   if (
     !id ||
@@ -91,7 +92,8 @@ const { username, password, roles, active, id } = userValidation.updateUserValid
 //@route DELETE /user
 //@access Private
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  //   const { id } = req.body;
+  const { id } = userValidation.getUserValidation.validateAsync(req.body);
   if (!id) {
     return res.status(400).json({ message: "user id required" });
   }
