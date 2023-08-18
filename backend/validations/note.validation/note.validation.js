@@ -6,12 +6,12 @@ const createNoteValidation = Joi.object({
   userId: Joi.string().required().label("User ID"),
 });
 
-const getTodoValidation = Joi.object({
-  id: Joi.string().required().label("Todo Id"),
-});
-
-const todoIdValidation = Joi.object({
-  id: Joi.string().required().label("Todo Id"),
+const getNoteValidation = Joi.object({
+  id: Joi.string().required().label("Note Id"),
+  title: Joi.string().label("Title"),
+  description: Joi.string().label("Description"),
+  userId: Joi.string().label("User ID"),
+  completed: Joi.boolean().label("Completed"),
 });
 
 const updateNoteValidation = Joi.object({
@@ -24,7 +24,6 @@ const updateNoteValidation = Joi.object({
 
 module.exports = {
   createNoteValidation,
-  getTodoValidation,
-  todoIdValidation,
+  getNoteValidation,
   updateNoteValidation,
 };

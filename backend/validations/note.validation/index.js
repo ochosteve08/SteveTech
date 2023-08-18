@@ -1,13 +1,11 @@
 const {
   createNoteValidation,
-  getTodoValidation,
-  todoIdValidation,
+  getNoteValidation,
   updateNoteValidation,
 } = require("./note.validation");
 
 module.exports = {
   createNoteValidation,
-  getTodoValidation,
-  todoIdValidation,
+  getNoteValidation,
   updateNoteValidation,
 };
