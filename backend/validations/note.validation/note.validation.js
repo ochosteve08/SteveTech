@@ -14,15 +14,17 @@ const todoIdValidation = Joi.object({
   id: Joi.string().required().label("Todo Id"),
 });
 
-const updateTodoValidation = Joi.object().keys({
+const updateNoteValidation = Joi.object({
   title: Joi.string().required().label("Title"),
   description: Joi.string().required().label("Description"),
   completed: Joi.boolean().label("Completed"),
+  userId: Joi.string().required().label("User ID"),
+  id: Joi.string().required().label("note ID"),
 });
 
 module.exports = {
- createNoteValidation,
+  createNoteValidation,
   getTodoValidation,
   todoIdValidation,
-  updateTodoValidation,
+  updateNoteValidation,
 };
