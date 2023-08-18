@@ -11,9 +11,6 @@ const getAllNotes = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "No notes found" });
   }
 
-  // Add username to each note before sending the response
-  // See Promise.all with map() here: https://youtu.be/4lqJBBEpjRE
-  // You could also do this with a for...of loop
   const notesWithUser = await Promise.all(
     notes.map(async (note) => {
       const user = await UserModel.findById(note.userId).lean().exec();
@@ -28,36 +25,38 @@ const getAllNotes = asyncHandler(async (req, res) => {
 const createNote = asyncHandler(async (req, res) => {
   const { userId, title, description } =
     await noteValidation.createNoteValidation.validateAsync(req.body);
-
- 
   //check for duplicate title
   const duplicate = await NoteModel.findOne({ title }).lean().exec();
- 
   if (duplicate) {
     return res.status(409).json({ message: "Duplicate note title" });
   }
-
   //create and store note
   const note = await NoteModel.create({ userId, title, description });
-console.log("saved note:",note);
+  console.log("saved note:", note);
   if (note) {
     res.status(200).json({ message: "New note created successfully", note });
   } else {
     res.status(400).json({ message: "invalid note data received" });
   }
- 
 });
 
 //@access Private
 const updateNote = asyncHandler(async (req, res) => {
-  const { id, user, title, text, completed } = req.body;
+  const { id, userId, title, description, completed } =
+    noteValidation.updateNoteValidation.validateAsync(req.body);
 
   //confirm data
-  if (!id || !user || !title || !text || typeof completed !== "boolean") {
-    return res
-      .status(400)
-      .json({ message: "All fields except password are required" });
-  }
+  // if (
+  //   !id ||
+  //   !userId ||
+  //   !title ||
+  //   !description ||
+  //   typeof completed !== "boolean"
+  // ) {
+  //   return res
+  //     .status(400)
+  //     .json({ message: "All fields except password are required" });
+  // }
 
   // Confirm note exists to update
   const note = await NoteModel.findById(id).exec();
@@ -73,9 +72,9 @@ const updateNote = asyncHandler(async (req, res) => {
   if (duplicate && duplicate._id.toString() !== id) {
     return res.status(409).json({ message: "duplicate title" });
   }
-  note.user = user;
+  note.userId = userId;
   user.title = title;
-  user.text = text;
+  user.description = description;
   note.completed = completed;
 
   const updateNote = await note.save();
