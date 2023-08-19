@@ -36,7 +36,7 @@ const NotesList = () => {
               Title
             </th>
             <th scope="col" className="table__th note__username">
-              Owner
+             Assigned to
             </th>
             <th scope="col" className="table__th note__edit">
               Edit
