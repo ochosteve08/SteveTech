@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const User = ({ userId }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => selectUsersById(state, userId));
-
+console.log(user);
   if (user) {
     const handleEdit = () => navigate(`/dash/users/${userId}`);
     const userRolesString = user.roles.toString().replaceAll(",", ", ");
