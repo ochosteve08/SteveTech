@@ -34,7 +34,6 @@ const EditUserForm = ({ user }) => {
   }, [password]);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess || isDelSuccess) {
       setUsername("");
       setPassword("");
@@ -61,6 +60,7 @@ const EditUserForm = ({ user }) => {
       await updateUser({ id: user.id, username, password, roles, active });
     } else {
       await updateUser({ id: user.id, username, roles, active });
+      console.log({ id: user.id, username, roles, active });
     }
   };
 
