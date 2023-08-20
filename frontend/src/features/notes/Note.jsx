@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Note = ({ noteId }) => {
   const navigate = useNavigate();
   const note = useSelector((state) => selectNotesById(state, noteId));
-  console.log(note);
+  
   if (note) {
     const created = new Date(note.createdAt).toLocaleString("en-NG", {
       day: "numeric",
