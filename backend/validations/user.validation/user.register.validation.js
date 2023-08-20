@@ -1,20 +1,5 @@
 const Joi = require("joi");
 
-const userRegisterValidation = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: true } })
-    .required()
-    .label("Email")
-    .max(255),
-  password: Joi.string()
-    .required()
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@%+\\/!#?$\[\]{}()_\-.])[A-Za-z\d@%+\\/!#?$\[\]{}()_\-.]{8,}$/
-    )
-    .min(8)
-    .max(128),
-});
-
 const createUserValidation = Joi.object({
   username: Joi.string().required().label("Username"),
   password: Joi.string()

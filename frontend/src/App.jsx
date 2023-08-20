@@ -5,11 +5,11 @@ import Login from "./features/auth/Login";
 import DashLayout from "./Components/DashLayout";
 import Welcome from "./features/auth/Welcome";
 import NotesList from "./features/notes/NotesList";
-import UsersList from "./features/users/UsersList"
+import UsersList from "./features/users/UsersList";
 import EditUser from "./features/users/EditUser";
-import NewUser from "./features/users/NewUser";
+import NewUserForm from "./features/users/NewUserForm";
 import EditNote from "./features/notes/EditNote";
-import NewNote from "./features/notes/NewNote";
+import NewNoteForm from "./features/notes/NewNoteForm";
 
 function App() {
   return (
@@ -23,13 +23,13 @@ function App() {
           <Route path="users">
             <Route index element={<UsersList />} />
             <Route path=":id" element={<EditUser />} />
-            <Route path="new" element={<NewUser />} />
+            <Route path="new" element={<NewUserForm />} />
           </Route>
 
           <Route path="notes">
             <Route index element={<NotesList />} />
             <Route path=":id" element={<EditNote />} />
-            <Route path="new" element={<NewNote />} />
+            <Route path="new" element={<NewNoteForm />} />
           </Route>
         </Route>
       </Route>
