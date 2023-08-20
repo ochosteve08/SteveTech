@@ -1,15 +1,22 @@
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserById } from "./UsersApiSlice";
+import { useGetUsersQuery } from "./UsersApiSlice";
 import EditUserForm from "./EditUserForm";
 
 const EditUser = () => {
   const { id } = useParams();
 
-  const user = useSelector((state) => selectUserById(state, id));
- 
+  const { data: users, isFetching } = useGetUsersQuery();
 
-  const content = user ? <EditUserForm user={user} /> : <p>Loading...</p>;
+  const user = users?.entities[id];
+
+  let content;
+  if (isFetching && !user) {
+    content = <p>Loading...</p>;
+  } else if (user) {
+    content = <EditUserForm user={user} />;
+  } else {
+    content = <p>No user found</p>;
+  }
 
   return content;
 };
