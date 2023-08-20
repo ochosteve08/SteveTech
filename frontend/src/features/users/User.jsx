@@ -2,12 +2,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { selectUsersById } from "./UsersApiSlice";
+import { selectUserById } from "./UsersApiSlice";
 import { useSelector } from "react-redux";
 
 const User = ({ userId }) => {
   const navigate = useNavigate();
-  const user = useSelector((state) => selectUsersById(state, userId));
+  const user = useSelector((state) => selectUserById(state, userId));
+
 
   if (user) {
     const handleEdit = () => navigate(`/dash/users/${userId}`);
