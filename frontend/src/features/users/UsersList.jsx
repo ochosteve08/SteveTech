@@ -3,6 +3,7 @@ import User from './User';
 
 const UsersList = () => {
   const {data: users, isLoading, isSuccess, isError, error} = useGetUsersQuery();
+  console.log(users)
   let  content;
   if(isLoading) content = <p>Loading....</p>
   if (isError) {

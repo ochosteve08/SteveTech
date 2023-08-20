@@ -8,7 +8,7 @@ const NotesList = () => {
     isError,
     error,
   } = useGetNotesQuery();
-  console.log(notes);
+
 
   let content;
 

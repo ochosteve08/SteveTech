@@ -6,10 +6,9 @@ import { selectNotesById } from "./NotesApislice";
 import { useSelector } from "react-redux";
 
 const Note = ({ noteId }) => {
-    console.log(noteId)
   const navigate = useNavigate();
   const note = useSelector((state) => selectNotesById(state, noteId));
-console.log(note);
+  console.log(note);
   if (note) {
     const created = new Date(note.createdAt).toLocaleString("en-NG", {
       day: "numeric",
