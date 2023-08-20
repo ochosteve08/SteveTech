@@ -7,15 +7,13 @@ import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ROLES } from "../../config/roles";
 import { USER_REGEX, PWD_REGEX } from "../../config/Regex";
 
-
-
 const EditUserForm = ({ user }) => {
   const [updateUser, { isLoading, isSuccess, isError, error }] =
     useUpdateUserMutation();
 
   const [
     deleteUser,
-    { isSuccess: isDelSuccess, isError: isDelError, error: delerror },
+    { isSuccess: isDelSuccess, isError: isDelError, error: delError },
   ] = useDeleteUserMutation();
 
   const navigate = useNavigate();
@@ -73,7 +71,6 @@ const EditUserForm = ({ user }) => {
   const options = Object.values(ROLES).map((role) => {
     return (
       <option key={role} value={role}>
-      
         {role}
       </option>
     );
@@ -91,11 +88,9 @@ const EditUserForm = ({ user }) => {
   const validUserClass = !validUsername ? "form__input--incomplete" : "";
   const validPwdClass =
     password && !validPassword ? "form__input--incomplete" : "";
-  const validRolesClass = !roles.length
-    ? "form__input--incomplete"
-    : "";
+  const validRolesClass = !roles.length ? "form__input--incomplete" : "";
 
-  const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
+  const errContent = (error?.data?.message || delError?.data?.message) ?? "";
 
   const content = (
     <>
@@ -107,7 +102,7 @@ const EditUserForm = ({ user }) => {
           <div className="form__action-buttons">
             <button
               className="icon-button"
-              title="Save"
+              title="Save Profile"
               onClick={onSaveUserClicked}
               disabled={!canSave}
             >
@@ -115,7 +110,7 @@ const EditUserForm = ({ user }) => {
             </button>
             <button
               className="icon-button"
-              title="Delete"
+              title="Delete Profile"
               onClick={onDeleteUserClicked}
             >
               <FontAwesomeIcon icon={faTrashCan} />
