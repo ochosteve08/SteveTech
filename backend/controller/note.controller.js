@@ -25,8 +25,10 @@ const getAllNotes = asyncHandler(async (req, res) => {
 const createNote = asyncHandler(async (req, res) => {
   const { userId, title, description } =
     await noteValidation.createNoteValidation.validateAsync(req.body);
+  console.log({ userId, title, description });
   //check for duplicate title
   const duplicate = await NoteModel.findOne({ title }).lean().exec();
+  console.log("duplicate:", duplicate)
   if (duplicate) {
     return res.status(409).json({ message: "Duplicate note title" });
   }
