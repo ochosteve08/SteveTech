@@ -60,7 +60,6 @@ const EditUserForm = ({ user }) => {
       await updateUser({ id: user.id, username, password, roles, active });
     } else {
       await updateUser({ id: user.id, username, roles, active });
-      console.log({ id: user.id, username, roles, active });
     }
   };
 
@@ -91,6 +90,7 @@ const EditUserForm = ({ user }) => {
   const validRolesClass = !roles.length ? "form__input--incomplete" : "";
 
   const errContent = (error?.data?.message || delError?.data?.message) ?? "";
+ 
 
   const content = (
     <>

@@ -2,13 +2,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { selectNotesById } from "./NotesApislice";
+import { selectNoteById } from "./NotesApislice";
 import { useSelector } from "react-redux";
 
 const Note = ({ noteId }) => {
   const navigate = useNavigate();
-  const note = useSelector((state) => selectNotesById(state, noteId));
-  
+  const note = useSelector((state) => selectNoteById(state, noteId));
+
   if (note) {
     const created = new Date(note.createdAt).toLocaleString("en-NG", {
       day: "numeric",
