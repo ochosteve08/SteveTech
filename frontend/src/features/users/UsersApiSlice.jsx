@@ -13,7 +13,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
-      keepUnusedDataFor: 300,
+
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((user) => {
           user.id = user._id;
@@ -24,8 +24,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: (result, error, arg) => {
         if (result?.ids) {
           return [
-            { type: "user", id: "LIST" },
-            ...result.ids.map((id) => ({ type: "user", id })),
+            { type: "User", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "User", id })),
           ];
         } else return [{ type: "User", id: "LIST" }];
       },
@@ -48,9 +48,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           ...initialUserData,
         },
       }),
-      invalidatesTags: (result, error, arg) => {
-        [{ type: "User", id: arg.id }];
-      },
+
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
     }),
     deleteUser: builder.mutation({
       query: ({ id }) => ({
@@ -58,9 +57,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => {
-        [{ type: "User", id: arg.id }];
-      },
+
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
     }),
   }),
 });

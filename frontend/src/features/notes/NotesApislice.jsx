@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
@@ -15,7 +16,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
-      keepUnusedDataFor: 5,
+
       transformResponse: (responseData) => {
         const loadedNotes = responseData.map((note) => {
           note.id = note._id;
@@ -42,7 +43,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Note", id: "LIST" }],
     }),
-    updateUser: builder.mutation({
+    updateNote: builder.mutation({
       query: (initialNoteData) => ({
         url: "/notes",
         method: "PATCH",
@@ -54,7 +55,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         [{ type: "Note", id: arg.id }];
       },
     }),
-    deleteUser: builder.mutation({
+    deleteNote: builder.mutation({
       query: ({ id }) => ({
         url: "/notes",
         method: "DELETE",
@@ -70,8 +71,8 @@ export const notesApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetNotesQuery,
   useAddNewNotesMutation,
-  useUpdateUserMutation,
-  useDeleteUserMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation,
 } = notesApiSlice;
 
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();

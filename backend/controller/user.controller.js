@@ -42,7 +42,7 @@ const createUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const { username, password, roles, active, id } =
     await userValidation.updateUserValidation.validateAsync(req.body);
-
+console.log({ username, roles, active, id });
   if (
     !id ||
     !username ||
