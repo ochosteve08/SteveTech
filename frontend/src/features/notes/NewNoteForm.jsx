@@ -13,7 +13,7 @@ const NewNoteForm = ({ users }) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [userId, setUserId] = useState(users[0].id);
+  const [userId, setUserId] = useState(users[0]?.id);
 
   
   useEffect(() => {

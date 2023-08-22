@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAddNewUserMutation } from "./UsersApiSlice";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { ROLES } from "../../config/roles.js";
-import {USER_REGEX,PWD_REGEX} from "../../config/Regex.js"
-
+import { USER_REGEX, PWD_REGEX } from "../../config/Regex.js";
 
 const NewUserForm = () => {
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
