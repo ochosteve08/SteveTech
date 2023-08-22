@@ -1,7 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const usersController = require('../controller/user.controller')
+const usersController = require("../controller/user.controller");
+const verifyJWT = require("../middleware/verifyJWT");
 
+router.use(verifyJWT);
 router
   .route("/")
   .get(usersController.getAllUsers)
@@ -9,4 +11,4 @@ router
   .patch(usersController.updateUser)
   .delete(usersController.deleteUser);
 
-    module.exports = router;
+module.exports = router;
