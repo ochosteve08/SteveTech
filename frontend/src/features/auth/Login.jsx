@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
+import usePersist from "../../hooks/usePersist";
+
 
 const Login = () => {
   const userRef = useRef();
@@ -10,6 +12,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [password, setPassword] = useState("");
+  const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,15 +32,17 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await login({ username, password }).unwrap();
-    
-    if (response.accessToken) { // Check if there's an accessToken in the response
-      dispatch(setCredentials({ accessToken: response.accessToken }));
-      setUsername("");
-      setPassword("");
-      navigate("/dash");
-    } else if (response.message) { // Check if there's an error message in the response
-      setErrMsg(response.message);
-    }
+
+      if (response.accessToken) {
+        // Check if there's an accessToken in the response
+        dispatch(setCredentials({ accessToken: response.accessToken }));
+        setUsername("");
+        setPassword("");
+        navigate("/dash");
+      } else if (response.message) {
+        // Check if there's an error message in the response
+        setErrMsg(response.message);
+      }
     } catch (err) {
       if (!err.status) {
         setErrMsg("No Server Response");
@@ -53,6 +58,7 @@ const Login = () => {
   };
   const handleUserInput = (event) => setUsername(event.target.value);
   const handlePwdInput = (event) => setPassword(event.target.value);
+  const handleToggle = () => setPersist((prev) => !prev);
 
   if (isLoading) return <p>Loading....</p>;
 
@@ -89,6 +95,16 @@ const Login = () => {
             required
           />
           <button className="form__submit-button">Sign In</button>
+          <label htmlFor="persist" className="form__persist">
+            <input
+              type="checkbox"
+              className="form__checkbox"
+              id="persist"
+              onChange={handleToggle}
+              checked={persist}
+            />
+            Trust This Device
+          </label>
         </form>
       </main>
       <footer>
