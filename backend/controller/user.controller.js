@@ -22,9 +22,12 @@ const createUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: " All fields are required" });
   }
 
-  const duplicate = await UserModel.findOne({ username }).lean().exec();
+  const duplicate = await UserModel.findOne({ username })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
   if (duplicate) {
-    return res.status(409).json({ message: "Duplicate username" });
+    return res.status(409).json({ message: "Sorry!!! username already exist" });
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -42,7 +45,7 @@ const createUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const { username, password, roles, active, id } =
     await userValidation.updateUserValidation.validateAsync(req.body);
-console.log({ username, roles, active, id });
+ 
   if (
     !id ||
     !username ||
@@ -60,10 +63,13 @@ console.log({ username, roles, active, id });
     res.status(400).json({ message: "user not found" });
   }
 
-  const duplicate = await UserModel.findOne({ username }).lean().exec();
+  const duplicate = await UserModel.findOne({ username })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
 
   if (duplicate && duplicate._id.toString() !== id) {
-    return res.status(409).json({ message: "duplicate username" });
+    return res.status(409).json({ message: "Sorry!!! username already exist" });
   }
   user.username = username;
   user.roles = roles;

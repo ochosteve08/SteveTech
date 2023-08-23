@@ -25,12 +25,17 @@ const getAllNotes = asyncHandler(async (req, res) => {
 const createNote = asyncHandler(async (req, res) => {
   const { userId, title, description } =
     await noteValidation.createNoteValidation.validateAsync(req.body);
-  console.log({ userId, title, description });
+
   //check for duplicate title
-  const duplicate = await NoteModel.findOne({ title }).lean().exec();
-  console.log("duplicate:", duplicate)
+  const duplicate = await NoteModel.findOne({ title })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
+
   if (duplicate) {
-    return res.status(409).json({ message: "Duplicate note title" });
+    return res
+      .status(409)
+      .json({ message: "Sorry!!! note title already exist" });
   }
   //create and store note
   const note = await NoteModel.create({ userId, title, description });
@@ -55,11 +60,16 @@ const updateNote = asyncHandler(async (req, res) => {
   }
 
   // check for duplicate
-  const duplicate = await NoteModel.findOne({ title }).lean().exec();
+  const duplicate = await NoteModel.findOne({ title })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
 
   //allow update to original user
   if (duplicate && duplicate._id.toString() !== id) {
-    return res.status(409).json({ message: "duplicate title" });
+    return res
+      .status(409)
+      .json({ message: "Sorry!!! note title already exist" });
   }
   note.userId = userId;
   note.title = title;
