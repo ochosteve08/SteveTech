@@ -42,18 +42,18 @@ const PersistLogin = () => {
   let content;
   if (!persist) {
     // persist: no
-    console.log("no persist");
+
     content = <Outlet />;
   } else if (isLoading) {
     //persist: yes, token: no
-    console.log("loading");
+
     content = <p>Loading...</p>;
   } else if (isError) {
     //persist: yes, token: no
-    console.log("error");
+
     content = (
       <p className="errmsg">
-        {error.data?.message}
+        {`${error.data?.message} -- `}
         <Link to="/login">Please login again</Link>.
       </p>
     );
