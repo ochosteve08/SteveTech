@@ -18,5 +18,5 @@
 1. [ ] Employees can only view and edit their assigned notes
 1. [ ] Managers and Admins can view, edit, and delete all notes
 1. [X] Only Managers and Admins can access User Settings
-1. [ ] Only Managers and Admins can create new users
+1. [X] Only Managers and Admins can create new users
 2. [ ] Desktop mode is most important but should be available in mobile.
