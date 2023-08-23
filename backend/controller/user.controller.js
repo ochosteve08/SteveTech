@@ -18,7 +18,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const createUser = asyncHandler(async (req, res) => {
   const { username, password, roles } =
     await userValidation.createUserValidation.validateAsync(req.body);
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
+  if (!username || !password) {
     return res.status(400).json({ message: " All fields are required" });
   }
 
@@ -31,7 +31,10 @@ const createUser = asyncHandler(async (req, res) => {
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  const userObject = { username, password: hashPassword, roles };
+  const userObject =
+    !Array.isArray(roles) || !roles.length
+      ? { username, password: hashPassword }
+      : { username, password: hashPassword, roles };
 
   const user = await UserModel.create(userObject);
   if (user) {
@@ -45,7 +48,7 @@ const createUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const { username, password, roles, active, id } =
     await userValidation.updateUserValidation.validateAsync(req.body);
- 
+
   if (
     !id ||
     !username ||
