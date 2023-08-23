@@ -16,7 +16,7 @@ const DashHeader = () => {
       navigate("/");
     }
   }, [isSuccess, navigate]);
-  const onLogoutHandler = () => sendLogout();
+  // const onLogoutHandler = () => sendLogout();
   if (isError) {
     return <p>Error: {error.data?.message}</p>;
   }
@@ -43,7 +43,7 @@ const DashHeader = () => {
         <Link to="/dash">
           <h1 className="dash-header__title">techNotes</h1>
         </Link>
-        <nav className="dash-header__nav" onClick={onLogoutHandler}>{logoutButton}</nav>
+        <nav className="dash-header__nav" >{logoutButton}</nav>
       </div>
     </header>
   );

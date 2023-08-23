@@ -14,7 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading}] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
+  const errClass = errMsg ? "errmsg" : "offscreen";
 
   useEffect(() => {
     userRef.current.focus();
@@ -27,12 +28,16 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { accessToken } = await login({ username, password }).unwrap();
-      console.log(accessToken);
-      dispatch(setCredentials({ accessToken }));
+      const response = await login({ username, password }).unwrap();
+    
+    if (response.accessToken) { // Check if there's an accessToken in the response
+      dispatch(setCredentials({ accessToken: response.accessToken }));
       setUsername("");
       setPassword("");
       navigate("/dash");
+    } else if (response.message) { // Check if there's an error message in the response
+      setErrMsg(response.message);
+    }
     } catch (err) {
       if (!err.status) {
         setErrMsg("No Server Response");
@@ -44,12 +49,11 @@ const Login = () => {
         setErrMsg(err.data?.message);
       }
       errRef.current.focus();
-      console.log(err.status);
     }
   };
   const handleUserInput = (event) => setUsername(event.target.value);
   const handlePwdInput = (event) => setPassword(event.target.value);
-  const errClass = errMsg ? "errmsg" : "offscreen";
+
   if (isLoading) return <p>Loading....</p>;
 
   const content = (
