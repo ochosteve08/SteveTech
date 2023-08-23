@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, 
+  // useLocation
+ } from "react-router-dom";
 import { useSendLogoutMutation } from "../features/auth/authApiSlice";
-import { DASH_REGEX, USERS_REGEX, NOTES_REGEX } from "../config/Regex";
+// import { DASH_REGEX, USERS_REGEX, NOTES_REGEX } from "../config/Regex";
 
 const DashHeader = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const [sendLogout, { isLoading, isSuccess, isError, error }] =
     useSendLogoutMutation();
 
@@ -22,14 +24,14 @@ const DashHeader = () => {
   }
   if (isLoading) return <p>Loading...</p>;
 
-  let dashClass = null;
-  if (
-    !DASH_REGEX.test(pathname) &&
-    !NOTES_REGEX.test(pathname) &&
-    !USERS_REGEX.test(pathname)
-  ) {
-    dashClass = "dash-header__container--small";
-  }
+  // let dashClass = null;
+  // if (
+  //   !DASH_REGEX.test(pathname) &&
+  //   !NOTES_REGEX.test(pathname) &&
+  //   !USERS_REGEX.test(pathname)
+  // ) {
+  //   dashClass = "dash-header__container--small";
+  // }
 
   const logoutButton = (
     <button className="icon-button" title="Logout" onClick={sendLogout}>
@@ -39,7 +41,7 @@ const DashHeader = () => {
 
   const content = (
     <header className="dash-header">
-      <div className={`dash-header__container ${dashClass}`}>
+      <div className={`dash-header__container `}>
         <Link to="/dash">
           <h1 className="dash-header__title">techNotes</h1>
         </Link>
@@ -51,3 +53,5 @@ const DashHeader = () => {
   return content;
 };
 export default DashHeader;
+
+
