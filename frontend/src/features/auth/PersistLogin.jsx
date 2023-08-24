@@ -50,6 +50,7 @@ const PersistLogin = () => {
 
     content = (
       <PulseLoader
+        className="dash-container"
         style={{
           justifyContent: "center",
           alignItems: "center",

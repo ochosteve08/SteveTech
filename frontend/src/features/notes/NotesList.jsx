@@ -2,8 +2,11 @@ import { useGetNotesQuery } from "./NotesApislice";
 import Note from "./Note";
 import useAuth from "../../hooks/useAuth";
 import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
+
 
 const NotesList = () => {
+    useTitle("NotesList");
   const {
     data: notes,
     isLoading,
@@ -19,7 +22,17 @@ const NotesList = () => {
 
   let content;
 
-  if (isLoading) content = <PulseLoader color={"#FFF"} />;
+  if (isLoading) content = (
+    <PulseLoader
+      className="dash-container"
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "100px auto",
+      }}
+      color={"#FFF"}
+    />
+  );
   if (isError) content = <p className="errmsg">{error?.data?.message}</p>;
   if (isSuccess) {
     const { ids, entities } = notes;

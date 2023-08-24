@@ -5,8 +5,11 @@ import { useAddNewUserMutation } from "./UsersApiSlice";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { ROLES } from "../../config/roles.js";
 import { USER_REGEX, PWD_REGEX } from "../../config/Regex.js";
+import useTitle from "../../hooks/useTitle";
+
 
 const NewUserForm = () => {
+    useTitle("NewUser");
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
     useAddNewUserMutation();
   const navigate = useNavigate();

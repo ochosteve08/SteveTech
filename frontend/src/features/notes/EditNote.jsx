@@ -4,8 +4,11 @@ import { useGetNotesQuery } from "./NotesApiSlice";
 import { useGetUsersQuery } from "../users/UsersApiSlice";
 import useAuth from "../../hooks/useAuth";
 import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
+
 
 const EditNote = () => {
+    useTitle("EditNote");
   const { id } = useParams();
   const { isAdmin, isManager, username } = useAuth();
   const { note } = useGetNotesQuery("noteList", {
@@ -25,7 +28,17 @@ const EditNote = () => {
     filteredUsers = users?.filter((user) => user.username === username);
   }
 
-  if (!filteredUsers.length || !note) return <PulseLoader color={"#FFF"} />;
+  if (!filteredUsers.length || !note) return (
+    <PulseLoader
+      className="dash-container"
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "100px auto",
+      }}
+      color={"#FFF"}
+    />
+  );
 
   const content = note && filteredUsers && (
     <EditNoteForm note={note} users={filteredUsers} />

@@ -3,8 +3,11 @@ import DashHeader from "./DashHeader";
 import DashFooter from "./DashFooter";
 import { useSelector } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../hooks/useTitle";
+
 
 const DashLayout = () => {
+    useTitle("dashboard");
   const isLoggingOut = useSelector((state) => state.auth.isLoggingOut);
   let content;
 

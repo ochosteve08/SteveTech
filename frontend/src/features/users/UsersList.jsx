@@ -1,8 +1,11 @@
 import { useGetUsersQuery } from "./UsersApiSlice";
 import User from "./User";
 import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
+
 
 const UsersList = () => {
+    useTitle("UsersList");
   const {
     data: users,
     isLoading,
@@ -16,7 +19,18 @@ const UsersList = () => {
   });
 
   let content;
-  if (isLoading) content = <PulseLoader color={"#FFF"} />;
+  if (isLoading)
+    content = (
+      <PulseLoader
+        className="dash-container"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "200px auto",
+        }}
+        color={"#FFF"}
+      />
+    );
   if (isError) {
     content = <p className="errmsg">{error?.data?.message}</p>;
   }
