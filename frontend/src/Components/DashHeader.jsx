@@ -7,12 +7,10 @@ import {
   faUserPlus,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, Link, 
-  useLocation
- } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useSendLogoutMutation } from "../features/auth/authApiSlice";
 import { DASH_REGEX, USERS_REGEX, NOTES_REGEX } from "../config/Regex";
-import useAuth from "../hooks/useAuth"
+import useAuth from "../hooks/useAuth";
 
 
 const DashHeader = () => {
@@ -23,6 +21,7 @@ const DashHeader = () => {
 
   const [sendLogout, { isLoading, isSuccess, isError, error }] =
     useSendLogoutMutation();
+    
 
   useEffect(() => {
     if (isSuccess) navigate("/");
@@ -111,23 +110,23 @@ const DashHeader = () => {
     );
   }
 
-  const content = (
+  let content;
+  content = (
     <>
       <p className={errClass}>{error?.data?.message}</p>
 
       <header className="dash-header">
         <div className={`dash-header__container ${dashClass}`}>
           <Link to="/dash">
-            <h1 className="dash-header__title">techNotes</h1>
+            <h1 className="dash-header__title">SteveTech</h1>
           </Link>
           <nav className="dash-header__nav">{buttonContent}</nav>
         </div>
       </header>
     </>
   );
+  
 
   return content;
 };
 export default DashHeader;
-
-
