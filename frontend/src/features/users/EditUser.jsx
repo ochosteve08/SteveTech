@@ -1,38 +1,19 @@
-// import { useParams } from "react-router-dom";
-// import { useGetUsersQuery } from "./UsersApiSlice";
-// import EditUserForm from "./EditUserForm";
-
-// const EditUser = () => {
-//   const { id } = useParams();
-
-//   const { data: users, isFetching } = useGetUsersQuery();
-
-//   const user = users?.entities[id];
-
-//   let content;
-//   if (isFetching && !user) {
-//     content = <p>Loading...</p>;
-//   } else if (user) {
-//     content = <EditUserForm user={user} />;
-//   } else {
-//     content = <p>No user found</p>;
-//   }
-
-//   return content;
-// };
-// export default EditUser;
-
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserById } from "./UsersApiSlice";
+import { useGetUsersQuery } from "./UsersApiSlice";
 import EditUserForm from "./EditUserForm";
+import PulseLoader from "react-spinners/PulseLoader";
+
 
 const EditUser = () => {
   const { id } = useParams();
+  const { user } = useGetUsersQuery("userList", {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[id],
+    }),
+  });
 
-  const user = useSelector((state) => selectUserById(state, id));
-
-  const content = user ? <EditUserForm user={user} /> : <p>Loading...</p>;
+    if (!user) return <PulseLoader color={"#FFF"} />;
+  const content = user && <EditUserForm user={user} /> ;
 
   return content;
 };
