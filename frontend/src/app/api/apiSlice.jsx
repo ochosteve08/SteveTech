@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials } from "../../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3500",
+  baseUrl: "https://stevetech-api.onrender.com/",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
@@ -26,7 +26,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       // api.dispatch(setCredentials({ accessToken, refreshToken }));
       api.dispatch(setCredentials({ ...refreshResult.data }));
 
-      
       result = await baseQuery(args, api, extraOptions);
     } else {
       if (refreshResult?.error?.status === 403) {
