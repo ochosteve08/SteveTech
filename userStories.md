@@ -13,10 +13,10 @@
 1. [X] Notes have a ticket #, title, note body, created & updated dates
 1. [X] Notes are either OPEN or COMPLETED
 1. [X] Users can be Employees, Managers, or Admins
-1. [ ] Notes can only be deleted by Managers or Admins
+1. [X] Notes can only be deleted by Managers or Admins
 1. [X] Anyone can create a note (when customer checks-in)
-1. [ ] Employees can only view and edit their assigned notes
-1. [ ] Managers and Admins can view, edit, and delete all notes
+1. [X] Employees can only view and edit their assigned notes
+1. [X] Managers and Admins can view, edit, and delete all notes
 1. [X] Only Managers and Admins can access User Settings
 1. [X] Only Managers and Admins can create new users
 2. [ ] Desktop mode is most important but should be available in mobile.
