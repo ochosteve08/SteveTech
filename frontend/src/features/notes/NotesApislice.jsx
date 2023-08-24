@@ -12,11 +12,12 @@ const initialState = notesAdapter.getInitialState();
 export const NotesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query({
-      query: () => "/notes",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError;
-      },
-
+      query: () => ({
+        url: "/notes",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
       transformResponse: (responseData) => {
         const loadedNotes = responseData.map((note) => {
           note.id = note._id;
@@ -27,10 +28,10 @@ export const NotesApiSlice = apiSlice.injectEndpoints({
       providesTags: (result, error, arg) => {
         if (result?.ids) {
           return [
-            { type: "note", id: "LIST" },
-            ...result.ids.map((id) => ({ type: "note", id })),
+            { type: "Note", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "Note", id })),
           ];
-        } else return [{ type: "note", id: "LIST" }];
+        } else return [{ type: "Note", id: "LIST" }];
       },
     }),
     addNewNote: builder.mutation({
