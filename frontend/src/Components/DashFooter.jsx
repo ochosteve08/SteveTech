@@ -7,8 +7,8 @@ const DashFooter = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const onGoHomeClicked = () => navigate("/dash");
-  const { username, status, isAdmin } = useAuth();
-  console.log(isAdmin);
+  const { username, status,  } = useAuth();
+
   let goHomeButton = null;
   if (pathname !== "/dash") {
     goHomeButton = (

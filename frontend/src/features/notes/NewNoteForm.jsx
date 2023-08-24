@@ -40,7 +40,7 @@ const NewNoteForm = ({ users }) => {
 
   const options = users.map((user) => {
     return (
-      <option key={user.id} value={user.id}>
+      <option className="form__option" key={user.id} value={user.id} >
         {user.username}
       </option>
     );

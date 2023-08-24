@@ -1,15 +1,26 @@
-import { useSelector } from "react-redux";
-import { selectAllUsers } from "../users/UsersApiSlice";
 import NewNoteForm from "./NewNoteForm";
+import PulseLoader from "react-spinners/PulseLoader";
+import { useGetUsersQuery } from "../users/UsersApiSlice";
+import useAuth from "../../hooks/useAuth";
 
 const NewNote = () => {
-  const users = useSelector(selectAllUsers);
- 
+  const { users } = useGetUsersQuery("usersList", {
+    selectFromResult: ({ data }) => ({
+      users: data?.ids.map((id) => data?.entities[id]),
+    }),
+  });
+  const { isAdmin, isManager, username } = useAuth();
 
+  let filteredUsers;
+  if (isAdmin || isManager) {
+    filteredUsers = [...users];
+  } else {
+    filteredUsers = users?.filter((user) => user.username === username);
+  }
 
-  const content = users.length ? <NewNoteForm users={users} /> : <p>Not currently available</p>;
+  if (!filteredUsers?.length) return <PulseLoader color={"#FFF"} />;
+  const content = filteredUsers && <NewNoteForm users={filteredUsers} />;
 
   return content;
-
 };
 export default NewNote;
