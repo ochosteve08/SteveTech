@@ -2,12 +2,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { selectNoteById } from "./NotesApislice";
-import { useSelector } from "react-redux";
+import { useGetNotesQuery } from "./NotesApislice";
+import { memo } from "react";
 
 const Note = ({ noteId }) => {
   const navigate = useNavigate();
-  const note = useSelector((state) => selectNoteById(state, noteId));
+
+  const { note } = useGetNotesQuery("noteList", {
+    selectFromResult: ({ data }) => ({
+      note: data?.entities[noteId],
+    }),
+  });
 
   if (note) {
     const created = new Date(note.createdAt).toLocaleString("en-NG", {
@@ -42,5 +47,5 @@ const Note = ({ noteId }) => {
     );
   } else return null;
 };
-
-export default Note;
+const memoizedNote = memo(Note);
+export default memoizedNote;
