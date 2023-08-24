@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import usePersist from "../../hooks/usePersist";
-
+import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
+    useTitle("Login");
   const userRef = useRef();
   const errRef = useRef();
   const [username, setUsername] = useState("");
@@ -60,7 +62,18 @@ const Login = () => {
   const handlePwdInput = (event) => setPassword(event.target.value);
   const handleToggle = () => setPersist((prev) => !prev);
 
-  if (isLoading) return <p>Loading....</p>;
+  if (isLoading)
+    return (
+      <PulseLoader
+        className="dash-container"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "100px auto",
+        }}
+        color={"#FFF"}
+      />
+    );
 
   const content = (
     <section className="public">

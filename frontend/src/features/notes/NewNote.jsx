@@ -2,8 +2,11 @@ import NewNoteForm from "./NewNoteForm";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useGetUsersQuery } from "../users/UsersApiSlice";
 import useAuth from "../../hooks/useAuth";
+import useTitle from "../../hooks/useTitle";
+
 
 const NewNote = () => {
+    useTitle("NewNote");
   const { users } = useGetUsersQuery("usersList", {
     selectFromResult: ({ data }) => ({
       users: data?.ids.map((id) => data?.entities[id]),
