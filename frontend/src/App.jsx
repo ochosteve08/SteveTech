@@ -18,7 +18,7 @@ import useTitle from "./hooks/useTitle";
 
 
 function App() {
-  useTitle('SteveTech')
+  useTitle('Steve-Technologies')
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
