@@ -4,16 +4,30 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useGetNotesQuery } from "./NotesApislice";
 import { memo } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const Note = ({ noteId }) => {
   const navigate = useNavigate();
 
-  const { note } = useGetNotesQuery("noteList", {
+  const { note, isLoading } = useGetNotesQuery("noteList", {
     selectFromResult: ({ data }) => ({
       note: data?.entities[noteId],
+      isLoading: !data,
     }),
   });
-
+  if (isLoading) {
+    return (
+      <PulseLoader
+        className="dash-container"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "100px auto",
+        }}
+        color={"#FFF"}
+      />
+    );
+  }
   if (note) {
     const created = new Date(note.createdAt).toLocaleString("en-NG", {
       day: "numeric",
@@ -48,7 +62,6 @@ const Note = ({ noteId }) => {
   } else return null;
 };
 
+const memoizedNote = memo(Note);
 
-const memoizedNote = memo(Note)
-
-export default memoizedNote
+export default memoizedNote;

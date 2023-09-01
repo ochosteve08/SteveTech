@@ -90,7 +90,6 @@ const EditUserForm = ({ user }) => {
   const validRolesClass = !roles.length ? "form__input--incomplete" : "";
 
   const errContent = (error?.data?.message || delError?.data?.message) ?? "";
- 
 
   const content = (
     <>
@@ -118,7 +117,7 @@ const EditUserForm = ({ user }) => {
           </div>
         </div>
         <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
+          Username: <span className="nowrap">[6-20 letters]</span>
         </label>
         <input
           className={`form__input ${validUserClass}`}
@@ -131,8 +130,8 @@ const EditUserForm = ({ user }) => {
         />
 
         <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[empty = no change]</span>{" "}
-          <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          Password: <span className="nowrap">[empty === no change]</span>
+          <span className="nowrap">[8-20 chars incl. !@#$%]</span>
         </label>
         <input
           className={`form__input ${validPwdClass}`}

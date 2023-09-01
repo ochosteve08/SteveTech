@@ -7,8 +7,8 @@ const { userValidation } = require("../validations/");
 //  @route POST /auth
 //  @access public -- if access token has expired
 const Login = asyncHandler(async (req, res, next) => {
-  const { username, password } =
-    await userValidation.userLoginValidation.validateAsync(req.body);
+  const { username, password } = req.body;
+    // await userValidation.userLoginValidation.validateAsync(req.body);
 
   const foundUser = await UserModel.findOne({ username }).exec();
   if (!foundUser || !foundUser.active) {
@@ -55,7 +55,7 @@ const Login = asyncHandler(async (req, res, next) => {
 const Refresh = (req, res) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt) return res.status(401).json({ message: "unauthorized" });
+  if (!cookies?.jwt) return res.status(401).json({ message: "invalid credentials" });
   const refreshToken = cookies.jwt;
 
   jwt.verify(
@@ -64,7 +64,7 @@ const Refresh = (req, res) => {
     asyncHandler(async (err, decoded) => {
       if (err) return res.status(403).json({ message: "forbidden" });
       const foundUser = await UserModel.findOne({ username: decoded.username });
-      if (!foundUser) return res.status(401).json({ message: "unauthorized" });
+      if (!foundUser) return res.status(401).json({ message: "user not found" });
       const accessToken = jwt.sign(
         {
           userInfo: {

@@ -10,8 +10,8 @@
 
 :root {
   /* COLORS */
-  /* --BGCOLOR: #0F172A; */
-  --BGCOLOR: rgba(15, 23, 42, 0.7);
+  --BGCOLOR: #0F172A;
+  /* --BGCOLOR: rgba(15, 23, 42, 0.9); */
   --BORDER-COLOR: #FFF;
   --COLOR: #FFF;
   --ERROR: firebrick;
@@ -53,6 +53,8 @@
   color: var(--COLOR);
   display: grid;
   place-content: center;
+   cursor: pointer;
+  
 }
 
 .icon-button:hover,
@@ -160,7 +162,8 @@ a:focus-visible {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
-  gap: 0.5em;
+  gap: 1em;
+  padding-top: 10px;
 }
 
 .dash-container {
@@ -215,6 +218,7 @@ tr {
   position: sticky;
   top: 0;
   z-index: 1;
+  opacity: 0.8
 }
 
 .table__th,
@@ -223,6 +227,10 @@ tr {
   text-align: left;
   border: 1px solid var(--TABLE-COLOR);
   padding: 0.5em;
+  
+}
+.table__th{
+  opacity: 0.9
 }
 
 .table__cell:last-child {
@@ -262,6 +270,7 @@ tr {
   flex-flow: column nowrap;
   gap: 0.75em;
   max-width: 800px;
+
 }
 
 .form__checkbox-container {
@@ -288,11 +297,27 @@ tr {
 .form__submit-button {
   padding: 0.5em;
   border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+
+.form__submit-button{
+  margin-top: 15px;
+  font-weight: bold;
+  
+}
+.form__submit-button:hover{
+  opacity: 0.8;
+  cursor: pointer;
+
 }
 
 .form__input--text {
   min-height: 150px;
+
 }
+
+
 
 .form__input--incomplete {
   border: 1px solid var(--INPUT-INVALID);
@@ -302,6 +327,7 @@ tr {
 .form__checkbox {
   width: 24px;
   height: 24px;
+   cursor: pointer;
 }
 
 .form__select {
@@ -333,6 +359,7 @@ tr {
   gap: 0.5em;
 }
 
+
 @media screen and (max-width: 400px) {
   h1 {
     font-size: 2rem;
@@ -344,6 +371,7 @@ tr {
 
   .icon-button {
     font-size: 1.5rem;
+    
   }
 }
 
@@ -379,4 +407,11 @@ tr {
   .form__action-buttons {
     position: static;
   }
+
+  
+}
+
+.user__footer{
+  color: red;
+  font-weight: bold;
 }
