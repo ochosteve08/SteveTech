@@ -33,6 +33,8 @@ const NotesList = () => {
       color={"#FFF"}
     />
   );
+
+  
   if (isError) content = <p className="errmsg">{error?.data?.message}</p>;
   if (isSuccess) {
     const { ids, entities } = notes;

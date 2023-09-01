@@ -51,7 +51,7 @@ const Login = () => {
       } else if (err.status === 400) {
         setErrMsg("Missing Username or Password");
       } else if (err.status === 401) {
-        setErrMsg("Unauthorized");
+        setErrMsg("invalid Credent");
       } else {
         setErrMsg(err.data?.message);
       }
@@ -116,7 +116,7 @@ const Login = () => {
               onChange={handleToggle}
               checked={persist}
             />
-            Trust This Device
+            Keep me signed in
           </label>
         </form>
       </main>

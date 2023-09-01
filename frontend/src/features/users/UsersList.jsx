@@ -34,6 +34,7 @@ const UsersList = () => {
   if (isError) {
     content = <p className="errmsg">{error?.data?.message}</p>;
   }
+  
   if (isSuccess) {
     const { ids } = users;
     const tableContent =
