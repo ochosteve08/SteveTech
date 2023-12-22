@@ -39,7 +39,7 @@ const createNote = asyncHandler(async (req, res) => {
   }
   //create and store note
   const note = await NoteModel.create({ userId, title, description });
-  console.log("saved note:", note);
+
   if (note) {
     res.status(200).json({ message: "New note created successfully", note });
   } else {

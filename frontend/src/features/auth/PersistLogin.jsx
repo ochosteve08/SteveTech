@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { Outlet, Link } from "react-router-dom";
+import { Outlet,  Navigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useRefreshMutation } from "./authApiSlice";
 import usePersist from "../../hooks/usePersist.js";
@@ -65,7 +65,8 @@ const PersistLogin = () => {
     content = (
       <p className="errmsg">
         {`${error.data?.message} -- `}
-        <Link to="/login">Please login again</Link>.
+        <Navigate to="/login" />
+      
       </p>
     );
   } else if (isSuccess && trueSuccess) {
