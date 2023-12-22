@@ -7,17 +7,17 @@ const { userValidation } = require("../validations/");
 //  @route POST /auth
 //  @access public -- if access token has expired
 const Login = asyncHandler(async (req, res, next) => {
-  const { username, password } = req.body;
-    // await userValidation.userLoginValidation.validateAsync(req.body);
+  // const { username, password } = req.body;
+    await userValidation.userLoginValidation.validateAsync(req.body);
 
   const foundUser = await UserModel.findOne({ username }).exec();
   if (!foundUser || !foundUser.active) {
     return res.status(401).json({ message: "no user found" });
   }
-  console.log("foundUser:", foundUser);
+ 
   const match = await bcrypt.compare(password, foundUser.password);
   if (!match) return res.status(401).json({ message: "credentials mismatch" });
-  console.log("match:", match);
+  
   const accessToken = jwt.sign(
     {
       userInfo: {
@@ -60,7 +60,7 @@ const Refresh = (req, res) => {
 
   jwt.verify(
     refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
+    prs.env.REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
       if (err) return res.status(403).json({ message: "forbidden" });
       const foundUser = await UserModel.findOne({ username: decoded.username });
