@@ -9,6 +9,8 @@ const connectDB = require("./config/dbCon");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJson = require("./docs/swagger.json");
 
 // custom middleware
 const errorHandler = require("./middleware/errorHandler");
@@ -28,6 +30,12 @@ app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/user.routes"));
 app.use("/notes", require("./routes/notes.routes"));
 app.use("/auth", require("./routes/auth.routes"));
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
+app.get("/docs.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerJson);
+});
 
 app.all("*", (req, res) => {
   res.status(404);
