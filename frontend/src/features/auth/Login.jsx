@@ -8,7 +8,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
-    useTitle("Login");
+  useTitle("Login");
   const userRef = useRef();
   const errRef = useRef();
   const [username, setUsername] = useState("");
@@ -90,7 +90,7 @@ const Login = () => {
             type="text"
             id="username"
             value={username}
-            placeholder="username"
+            placeholder="Testing"
             className="form__input"
             ref={userRef}
             onChange={handleUserInput}
@@ -102,7 +102,7 @@ const Login = () => {
             type="password"
             id="password"
             value={password}
-            placeholder="password"
+            placeholder="Test-2023"
             className="form__input"
             onChange={handlePwdInput}
             required
