@@ -7,8 +7,8 @@ const { userValidation } = require("../validations/");
 //  @route POST /auth
 //  @access public -- if access token has expired
 const Login = asyncHandler(async (req, res, next) => {
-  // const { username, password } = req.body;
-    await userValidation.userLoginValidation.validateAsync(req.body);
+  const { username, password } = req.body;
+    // await userValidation.userLoginValidation.validateAsync(req.body);
 
   const foundUser = await UserModel.findOne({ username }).exec();
   if (!foundUser || !foundUser.active) {

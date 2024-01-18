@@ -1,6 +1,6 @@
 # Steve-Technologies
 
-**techNotes** is a modern web application designed to replace the traditional sticky note system. The main objective is to streamline note-taking and note management processes for better operational efficiency in a tech setting.
+**SteveTech** is a modern web application designed to replace the traditional sticky note system. The main objective is to streamline note-taking and note management processes for better operational efficiency in a tech setting.
 
 ## Testing credentials:
 
@@ -36,10 +36,6 @@ Password: Test-2023
 ## Future Implementations
 
 While the current set of features provides comprehensive note management functionalities, there is always room for enhancement. Stay tuned for more updates!
-
-## Contributing
-
-Interested in contributing to **techNotes**? Refer to the `CONTRIBUTING.md` for guidelines.
 
 ## License
 
